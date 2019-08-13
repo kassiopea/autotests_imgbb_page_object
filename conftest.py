@@ -14,9 +14,12 @@ def browser(request):
     browser = request.config.getoption("browser")
     locate = request.config.getoption("language")
     if browser == "chrome":
+        # path = r'C:\path\to\chrome\driver\chromedriver.exe'
         options = Options()
         options.add_argument("--start-maximized")
         options.add_experimental_option('prefs', {'intl.accept_languages': locate})
+        #var for driver with executable_path
+        # browser = webdriver.Chrome(options=options, executable_path=path)
         browser = webdriver.Chrome(options=options)
     elif browser == "firefox":
         fp = webdriver.FirefoxProfile()
