@@ -43,19 +43,6 @@ class TestUserUploadFile(object):
         page = ProfilePage(browser, browser.current_url)
         page.should_be_profile_url()
 
-    def test_upload_file_from_main_page(self, browser):
-        link = Urls.MAIN_PAGE
-        page = BasePage(browser, link)
-        page.open()
-        files_name = "test.jpg"
-        path = os.path.join(Upload.PATH_TO_FILES_FOLDER, files_name)
-        page.add_file_from_pc(path)
-        page.should_be_added_file()
-        page.upload_file_from_pc()
-        page.should_be_embed_codes()
-        page.close_popup()
-        page.should_be_main_page()
-
     def test_upload_file_from_profile_page(self, browser):
         link = "https://{}.imgbb.com/".format(Auth.USERNAME)
         page = ProfilePage(browser, link)
