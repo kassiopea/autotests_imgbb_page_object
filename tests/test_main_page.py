@@ -1,3 +1,5 @@
+from time import sleep
+
 import pytest
 import os
 import os.path
@@ -104,7 +106,8 @@ class TestUserUploadFile(object):
         page.should_be_added_file()
         page.upload_file_from_pc()
         page.should_be_embed_codes()
-        page.close_popup()
+        # sleep(20)
+        # page.close_popup()
         page.should_be_main_page()
 
     def logout(self, browser):

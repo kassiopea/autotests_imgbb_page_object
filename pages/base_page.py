@@ -26,7 +26,6 @@ class BasePage(object):
             (EC.element_to_be_clickable((how, what)))
 
     def close_popup(self):
-        # self.should_be_disappear_message_window()
         close_popup = self.to_get_clickable_elem(*UploadFilesLocators.CLOSE_POPUP)
         close_popup.click()
 
@@ -34,7 +33,7 @@ class BasePage(object):
         close_popup_message = self.browser.find_element(*BasePageLocators.POPUP_MESSAGE_CLOSE)
         close_popup_message.click()
 
-    def is_disappeared(self, how, what, timeout=2):
+    def is_disappeared(self, how, what, timeout=4):
         try:
             WebDriverWait(self.browser, timeout, 1, TimeoutException). \
                 until_not(EC.presence_of_element_located((how, what)))
@@ -86,9 +85,6 @@ class BasePage(object):
     def should_be_authorized_user(self):
         assert self.browser.find_element(*BasePageLocators.PROFILE_NAME).text == Auth.PROFILE_NAME, \
             "Profile name is not presented,probably unauthorised user"
-
-    def should_be_disappear_upload_button(self):
-        assert self.is_disappeared(*UploadFilesLocators.UPLOAD_BUTTON), "Upload button is not disappeared"
 
     def should_be_error_upload_message(self):
         assert self.is_element_present(*BasePageLocators.POPUP_MESSAGE), "The popup message error is not present"
