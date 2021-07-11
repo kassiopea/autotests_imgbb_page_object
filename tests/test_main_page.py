@@ -79,7 +79,6 @@ class TestUploadFromMainPage:
         page.add_file_from_pc(path)
         page.should_be_upload_button()
         page.upload_file_from_pc()
-        page.should_be_disappear_upload_button()
         page.should_be_embed_codes()
 
 
