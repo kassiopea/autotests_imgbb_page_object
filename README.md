@@ -19,11 +19,24 @@
 ```
 --language
 ```
+### Запуск тестов
+#### Локально
+
+- Установить python
+- Установить pip3
+- Скачать и добавить в дефолтную директорию chromebrowser 
+(если планируется запускать с другими браузерами, поместить их в ту же дефолтную директорию)
+- Активировать виртуальное окружение, например, командой `source test/bin/activate`
+- Установить зависимости `pip install -r requirements.txt`
+- Запустить все тесты с дефолтными настройками `pytest -vs`
 
 Пример запуска через консоль блока тестов login_guest в chrome с английской локалью:
 ```
-pytest tests/test_main_page.py -v -m "login_guest" --browser="chrome" --language="en"
+pytest tests/test_main_page.py -v -m "login_guest" --browser="firefox" --language="en"
 ```
+
+#### В докере
+
 
 #### Тесты
 ##### Главная страница

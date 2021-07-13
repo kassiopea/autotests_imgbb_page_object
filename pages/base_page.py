@@ -1,3 +1,4 @@
+from selenium.webdriver.common.action_chains import ActionChains
 from pages.locators import BasePageLocators
 from pages.locators import UploadFilesLocators
 from constants import Auth
@@ -21,19 +22,18 @@ class BasePage(object):
         upload = self.browser.find_element(*BasePageLocators.UPLOAD_INPUT)
         upload.send_keys(path)
 
-    def to_get_clickable_elem(self, how, what, timeout=4):
-        return WebDriverWait(self.browser, timeout).until\
-            (EC.element_to_be_clickable((how, what)))
-
-    def close_popup(self):
-        close_popup = self.to_get_clickable_elem(*UploadFilesLocators.CLOSE_POPUP)
-        close_popup.click()
-
     def close_popup_message(self):
         close_popup_message = self.browser.find_element(*BasePageLocators.POPUP_MESSAGE_CLOSE)
         close_popup_message.click()
 
-    def is_disappeared(self, how, what, timeout=4):
+    def hover_on_elem_end_click_for_other(self, elem, del_button):
+        button = self.browser.find_element(*del_button)
+        elem = self.browser.find_element(*elem)
+        # Hover = ActionChains(self.browser).move_to_element(elem).move_to_element(button)
+        # Hover.click().perform()
+        ActionChains(self.browser).move_to_element(elem).move_to_element(button).click(button).perform()
+
+    def is_disappeared(self, how, what, timeout=2):
         try:
             WebDriverWait(self.browser, timeout, 1, TimeoutException). \
                 until_not(EC.presence_of_element_located((how, what)))
@@ -41,14 +41,18 @@ class BasePage(object):
             return False
         return True
 
-    def is_element_present(self, how, what, timeout=10):
+    def is_element_clickable(self, how, what, timeout=4):
+        return WebDriverWait(self.browser, timeout). \
+            until(EC.element_to_be_clickable((how, what)))
+
+    def is_element_present(self, how, what, timeout=2):
         try:
             WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))
         except:
             return False
         return True
 
-    def is_not_element_present(self, how, what, timeout=10):
+    def is_not_element_present(self, how, what, timeout=2):
         try:
             WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))
         except TimeoutException:
@@ -86,12 +90,15 @@ class BasePage(object):
         assert self.browser.find_element(*BasePageLocators.PROFILE_NAME).text == Auth.PROFILE_NAME, \
             "Profile name is not presented,probably unauthorised user"
 
-    def should_be_error_upload_message(self):
-        assert self.is_element_present(*BasePageLocators.POPUP_MESSAGE), "The popup message error is not present"
+    def should_be_embed_codes(self):
+        assert self.is_element_present(*UploadFilesLocators.EMBED_CODES_BLOCK), "Embed codes block is not present"
 
-    def should_be_error_upload_message_text(self):
-        popup = self.browser.find_element(*BasePageLocators.POPUP_MESSAGE)
-        assert popup.find_element_by_tag_name('h1').text == "Some files couldn't be added", "Is not error message"
+    def should_be_popup_with_error_message(self):
+        assert self.is_element_present(*BasePageLocators.MODAL_WINDOW), "The popup message error is not present"
+
+    def should_be_text_error_upload_message(self):
+        popup = self.browser.find_element(*BasePageLocators.POPUP_MESSAGE).get_attribute('textContent')
+        assert popup == "Some files couldn't be added", f"Is not error message"
 
     def should_be_language_menu(self):
         assert self.is_element_present(*BasePageLocators.LANGUAGE_MENU), "Language menu is not presented"
@@ -112,16 +119,11 @@ class BasePage(object):
         assert self.is_element_present(*BasePageLocators.UPLOAD_LINK), "Upload link is not presented"
 
     def should_be_upload_button(self):
-        assert self.is_element_present(*UploadFilesLocators.UPLOAD_BUTTON), "Upload button is not present"
+        assert self.is_element_clickable(*UploadFilesLocators.UPLOAD_BUTTON), "Upload button is not clickable"
 
-    def should_be_embed_codes(self):
-        assert self.is_element_present(*UploadFilesLocators.EMBED_CODES_BLOCK), "Embed codes block is not present"
+    def should_be_disappear_popup_with_error_upload_message(self):
+        assert self.is_disappeared(*BasePageLocators.MODAL_WINDOW)
 
     def upload_file_from_pc(self):
         button = self.browser.find_element(*UploadFilesLocators.UPLOAD_BUTTON)
         button.click()
-
-    def should_be_disappear_message_window(self):
-        assert self.is_disappeared(*BasePageLocators.MODAL_WINDOW)
-
-

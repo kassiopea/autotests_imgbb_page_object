@@ -14,10 +14,9 @@ class BasePageLocators(object):
     USER_MENU = (By.CSS_SELECTOR, "#top-bar-user")
     USER_MENU_SIGN_OUT = (By.CSS_SELECTOR, ".pop-box-inner a[href='https://imgbb.com/logout']")
 
-    POPUP_MESSAGE = (By.CSS_SELECTOR, "#fullscreen-modal-box")
-    POPUP_MESSAGE_CLOSE = (By.CSS_SELECTOR, "#fullscreen-modal-box .close-modal")
-
-    MODAL_WINDOW = (By.CSS_SELECTOR, "#fullscreen-modal")
+    POPUP_MESSAGE = (By.CSS_SELECTOR, "#fullscreen-modal-body h1")
+    POPUP_MESSAGE_CLOSE = (By.CSS_SELECTOR, "#fullscreen-modal")
+    MODAL_WINDOW = (By.CSS_SELECTOR, "#fullscreen-modal-box")
 
 
 class MainPageLocators(object):
@@ -34,14 +33,18 @@ class LoginPageLocators(object):
 class UploadFilesLocators(object):
     ADDED_FILE = (By.CSS_SELECTOR, "#anywhere-upload-queue .queue-item")
     UPLOAD_BUTTON = (By.CSS_SELECTOR, "#anywhere-upload-submit button[data-action='upload']")
-    EMBED_CODES_BLOCK = (By.CSS_SELECTOR, "#uploaded-embed-toggle-combo")
+    EMBED_CODES_BLOCK = (By.CSS_SELECTOR, "#anywhere-upload-queue.queue-complete")
     POPUP_OPEN = (By.CSS_SELECTOR, ".upload-box--show")
-    CLOSE_POPUP = (By.CSS_SELECTOR, "#anywhere-upload a[data-action='close-upload']")
 
 
 class ProfilePageLocators(object):
     LIST_IMG = (By.CSS_SELECTOR, "#list-most-recent img")
+    LIST_ITEMS = (By.CSS_SELECTOR, ".list-item")
+    LIST_DEL = (By.CSS_SELECTOR, ".tool-delete")
+    CONFIRM_DELETIONS = (By.CSS_SELECTOR, "[data-action='submit'].btn-input")
+    PROFILE_CONTENT_EMPTY = (By.CSS_SELECTOR, "#tabbed-content-group .content-empty")
 
 
 class LogoutPageLocators(object):
     pass
+
