@@ -16,10 +16,11 @@ def replace_name(file):
     return name
 
 
+@pytest.mark.guest
 @pytest.mark.guest_in_profile_user
 class TestGuestRedirectToLogin(object):
     def test_redirection_guest_to_login_page(self, browser):
-        link = "https://{}.imgbb.com/".format(Auth.USERNAME)
+        link = f"https://{Auth.USERNAME}.imgbb.com/"
         page = ProfilePage(browser, link)
         page.open()
         page.go_to_login_page()
@@ -30,7 +31,7 @@ class TestGuestRedirectToLogin(object):
 @pytest.mark.autorizated_user
 class TestUserUploadFile(object):
     def test_upload_file_from_profile_page(self, browser, setup):
-        link = "https://{}.imgbb.com/".format(Auth.USERNAME)
+        link = f"https://{Auth.USERNAME}.imgbb.com/"
         page = ProfilePage(browser, link)
         page.open()
         files_name = "test.jpg"
@@ -42,7 +43,7 @@ class TestUserUploadFile(object):
         page.should_be_profile_url()
 
     def test_upload_file_with_valid_formats(self, browser, data_files, setup):
-        link = "https://{}.imgbb.com/".format(Auth.USERNAME)
+        link = f"https://{Auth.USERNAME}.imgbb.com/"
         page = ProfilePage(browser, link)
         page.open()
         files_name = data_files
@@ -57,7 +58,7 @@ class TestUserUploadFile(object):
         page.should_be_file_in_profile(name)
 
     def test_upload_invalid_file_formats(self, browser, data_invalid_files, setup):
-        link = "https://{}.imgbb.com/".format(Auth.USERNAME)
+        link = f"https://{Auth.USERNAME}.imgbb.com/"
         page = ProfilePage(browser, link)
         page.open()
         files_name = data_invalid_files

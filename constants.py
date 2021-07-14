@@ -1,5 +1,4 @@
 import os
-import pathlib
 
 
 class Auth:
@@ -16,5 +15,4 @@ class Urls:
 
 
 class Upload:
-    # PATH_TO_FILES_FOLDER = r"C:\Users\kassiopea\PycharmProjects\imgbb_auto_example\files"
     PATH_TO_FILES_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "./files/")

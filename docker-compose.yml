@@ -1,18 +1,30 @@
 version: "3"
+
 services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: app
+    command: 'pytest -vs -m "guest"'
+    ports:
+      - "5000:5000"
+    depends_on:
+      - hub
+      - chrome
+      - firefox
 
   hub:
-    image: selenium/hub
+    image: selenium/hub:latest
     ports:
       - "4444:4444"
-
     environment:
       GRID_MAX_SESSION: 16
       GRID_BROWSER_TIMEOUT: 3000
       GRID_TIMEOUT: 3000
 
   chrome:
-    image: selenium/node-chrome
+    image: selenium/node-chrome:latest
     container_name: web-automation_chrome
     depends_on:
       - hub
@@ -21,15 +33,11 @@ services:
       HUB_PORT_4444_TCP_PORT: 4444
       NODE_MAX_SESSION: 4
       NODE_MAX_INSTANCES: 4
-    volumes:
-      - /dev/shm:/dev/shm
     ports:
       - "9001:5900"
-    links:
-      - hub
 
   firefox:
-    image: selenium/node-firefox
+    image: selenium/node-firefox:latest
     container_name: web-automation_firefox
     depends_on:
       - hub
@@ -38,9 +46,5 @@ services:
       HUB_PORT_4444_TCP_PORT: 4444
       NODE_MAX_SESSION: 2
       NODE_MAX_INSTANCES: 2
-    volumes:
-      - /dev/shm:/dev/shm
     ports:
       - "9002:5900"
-    links:
-      - hub

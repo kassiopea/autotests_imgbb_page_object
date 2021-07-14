@@ -1,5 +1,3 @@
-from time import sleep
-
 import pytest
 import os
 import os.path
@@ -9,6 +7,7 @@ from constants import Upload
 from pages.base_page import BasePage
 
 
+@pytest.mark.guest
 @pytest.mark.login_guest
 class TestLoginFromMainPage:
     def test_guest_can_go_to_login_page(self, browser):
@@ -24,6 +23,7 @@ class TestLoginFromMainPage:
         page.should_be_login_link()
 
 
+@pytest.mark.guest
 @pytest.mark.signup_guest
 class TestSignupFromMainPage:
     def test_guest_can_go_to_signup_page(self, browser):
@@ -39,6 +39,7 @@ class TestSignupFromMainPage:
         page.should_be_signup_link()
 
 
+@pytest.mark.guest
 @pytest.mark.upload_guest
 class TestUploadFromMainPage:
     def test_guest_can_go_to_upload_popup(self, browser):

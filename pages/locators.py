@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 
 
 class BasePageLocators(object):
-    LOGIN_LINK = (By.CSS_SELECTOR, "#top-bar-signin a")
+    LOGIN_LINK = (By.CSS_SELECTOR, "#top-bar-signin")
     SIGNUP_LINK = (By.CSS_SELECTOR, "#top-bar-signup a")
     UPLOAD_LINK = (By.CSS_SELECTOR, "li[data-action='top-bar-upload']")
     LANGUAGE_MENU = (By.CSS_SELECTOR, "li[data-nav='language']")

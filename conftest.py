@@ -2,6 +2,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options
 import importlib
 
 from constants import Auth, Urls
@@ -12,7 +13,7 @@ from pages.profile_page import ProfilePage
 
 def pytest_addoption(parser):
     parser.addoption('--browser', action='store', help="select browser chrome or firefox", default="chrome")
-    parser.addoption('--language', action='store', help="select language", default="en")
+    parser.addoption('--language', action='store', help="select language", default="en-us")
 
 
 @pytest.fixture(scope="session")
@@ -22,23 +23,22 @@ def browser(request):
     if browser == "chrome":
         options = Options()
         options.add_argument("--start-maximized")
-        options.add_experimental_option('prefs', {'intl.accept_languages': locate})
-        # browser = webdriver.Remote(
-        #     command_executor='http://localhost:4444/wd/hub',
-        #     desired_capabilities=DesiredCapabilities.CHROME,
-        #     browser_profile=options
-        # )
-        browser = webdriver.Chrome(options=options)
+        # options.add_argument(f'--lang={locate}')
+        options.add_argument('--lang=en-us')
+        browser = webdriver.Remote(
+            command_executor='http://localhost:4444/wd/hub',
+            desired_capabilities=DesiredCapabilities.CHROME,
+            # options=options
+        )
+
     elif browser == "firefox":
-        fp = webdriver.FirefoxProfile()
-        fp.set_preference("intl.accept_languages", locate)
-        # browser = webdriver.Remote(
-        #     command_executor='http://localhost:4444/wd/hub',
-        #     desired_capabilities=DesiredCapabilities.FIREFOX,
-        #     browser_profile=fp
-        # )
-        browser = webdriver.Firefox(firefox_profile=fp)
-        browser.maximize_window()
+        fp = Options()
+        fp.add_argument(f'--lang={locate}')
+        browser = webdriver.Remote(
+            command_executor='http://localhost:4444/wd/hub',
+            desired_capabilities=DesiredCapabilities.FIREFOX,
+            # options=fp
+        )
 
     yield browser
     browser.quit()
