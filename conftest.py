@@ -23,7 +23,6 @@ def browser(request):
     if browser == "chrome":
         options = Options()
         options.add_argument("--start-maximized")
-        # options.add_argument(f'--lang={locate}')
         options.add_argument('--lang=en-us')
         browser = webdriver.Remote(
             command_executor='http://localhost:4444/wd/hub',
@@ -37,7 +36,6 @@ def browser(request):
         browser = webdriver.Remote(
             command_executor='http://localhost:4444/wd/hub',
             desired_capabilities=DesiredCapabilities.FIREFOX,
-            # options=fp
         )
 
     yield browser
@@ -76,4 +74,4 @@ def pytest_generate_tests(metafunc):
 
 
 def load_from_module(module):
-    return importlib.import_module("data.{}".format(module)).testdata
+    return importlib.import_module(f"data.{module}").testdata

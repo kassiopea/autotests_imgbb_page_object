@@ -7,9 +7,6 @@
 * Python 3
 * Pytest
 
-
-* Pycharm (в качестве редактора кода)
-
 Перед запуском тестов можно выбрать браузер, в котором будут запускаться тесты:
 ```
 --browser
@@ -20,23 +17,18 @@
 --language
 ```
 ### Запуск тестов
-#### Локально
 
-- Установить python
-- Установить pip3
-- Скачать и добавить в дефолтную директорию chromebrowser 
+1. Установить python
+2. Установить pip3
+3. Скачать и добавить в дефолтную директорию chromebrowser 
 (если планируется запускать с другими браузерами, поместить их в ту же дефолтную директорию)
-- Активировать виртуальное окружение, например, командой `source test/bin/activate`
-- Установить зависимости `pip install -r requirements.txt`
-- Запустить все тесты с дефолтными настройками `pytest -vs`
-
-Пример запуска через консоль блока тестов login_guest в chrome с английской локалью:
-```
-pytest tests/test_main_page.py -v -m "login_guest" --browser="firefox" --language="en"
-```
-
-#### В докере
-
+4. Активировать виртуальное окружение, например, командой `source test/bin/activate`
+5. Установить зависимости `pip install -r requirements.txt`
+6. Зпустить docker-compose с помощью команды ``` docker-compose up -d ```
+7. Запустить тесты с указанием директории для allure отчетов, например,
+``` pytest tests/*page.py --alluredir=./allure/allure-results --browser="docker_chrome.json" ```
+8. Посмотреть прогон тестов UI можно по ссылке ``` http://localhost:5252/allure-docker-service-ui/ ```
+9. Остановить docker-compose командой ``` docker-compose down ```
 
 #### Тесты
 ##### Главная страница
