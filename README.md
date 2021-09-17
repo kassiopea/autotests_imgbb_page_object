@@ -20,15 +20,13 @@
 
 1. Установить python
 2. Установить pip3
-3. Скачать и добавить в дефолтную директорию chromebrowser 
-(если планируется запускать с другими браузерами, поместить их в ту же дефолтную директорию)
-4. Активировать виртуальное окружение, например, командой `source test/bin/activate`
-5. Установить зависимости `pip install -r requirements.txt`
-6. Зпустить docker-compose с помощью команды ``` docker-compose up -d ```
-7. Запустить тесты с указанием директории для allure отчетов, например,
+3. Активировать виртуальное окружение, например, командой `source test/bin/activate`
+4. Установить зависимости `pip install -r requirements.txt`
+5. Зпустить docker-compose с помощью команды ``` docker-compose up -d ```
+6. Запустить тесты с указанием директории для allure отчетов, например,
 ``` pytest tests/*page.py --alluredir=./allure/allure-results --browser=chrome --language=ru ```
-8. Посмотреть прогон тестов UI можно по ссылке ``` http://localhost:5252/allure-docker-service-ui/ ```
-9. Остановить docker-compose командой ``` docker-compose down ```
+7. Посмотреть прогон тестов UI можно по ссылке ``` http://localhost:5252/allure-docker-service-ui/ ```
+8. Остановить docker-compose командой ``` docker-compose down ```
 
 #### Тесты
 ##### Главная страница
