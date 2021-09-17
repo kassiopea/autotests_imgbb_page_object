@@ -32,7 +32,7 @@
 - Остановить докер ``` docker-compose down ```
 
 
-#### В docker grid в ветке tests_docker
+#### В docker selenium grid в ветке tests_docker
 - Установить python
 - Установить pip3
 - Активировать виртуальное окружение, например, командой ``` source test/bin/activate ```
