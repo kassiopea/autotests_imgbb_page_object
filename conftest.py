@@ -28,7 +28,7 @@ def browser(request):
         browser = webdriver.Remote(
             command_executor='http://localhost:4444/wd/hub',
             desired_capabilities=DesiredCapabilities.CHROME,
-            # options=options
+            options=options
         )
 
     elif browser == "firefox":

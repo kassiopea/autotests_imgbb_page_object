@@ -4,9 +4,9 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: Dockerfile
     container_name: app
-    command: 'pytest -vs -m "guest"'
+    command: 'pytest -vs tests/test_main_page.py'
     ports:
       - "5000:5000"
     depends_on:
@@ -15,7 +15,7 @@ services:
       - firefox
 
   hub:
-    image: selenium/hub:latest
+    image: selenium/hub
     ports:
       - "4444:4444"
     environment:
@@ -24,7 +24,7 @@ services:
       GRID_TIMEOUT: 3000
 
   chrome:
-    image: selenium/node-chrome:latest
+    image: selenium/node-chrome
     container_name: web-automation_chrome
     depends_on:
       - hub
@@ -37,7 +37,7 @@ services:
       - "9001:5900"
 
   firefox:
-    image: selenium/node-firefox:latest
+    image: selenium/node-firefox
     container_name: web-automation_firefox
     depends_on:
       - hub
