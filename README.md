@@ -7,9 +7,6 @@
 * Python 3
 * Pytest
 
-
-* Pycharm (в качестве редактора кода)
-
 Перед запуском тестов можно выбрать браузер, в котором будут запускаться тесты:
 ```
 --browser
@@ -20,23 +17,32 @@
 --language
 ```
 ### Запуск тестов
-#### Локально
+#### Локально в ветке tests_local
 
 - Установить python
 - Установить pip3
 - Скачать и добавить в дефолтную директорию chromebrowser 
 (если планируется запускать с другими браузерами, поместить их в ту же дефолтную директорию)
-- Активировать виртуальное окружение, например, командой `source test/bin/activate`
-- Установить зависимости `pip install -r requirements.txt`
-- Запустить все тесты с дефолтными настройками `pytest -vs`
+- Активировать виртуальное окружение, например, командой ``` source test/bin/activate ```
+- Установить зависимости ``` pip install -r requirements.txt ```
+- Запустить docker compose с allure (сохраняет историю прогонов) ``` docker-compose up -d ```
+- Запустить все тесты с указанием папки для репортов 
+``` pytest tests/*page.py --alluredir=./allure/allure-results --browser=firefox --language="en" ```
+- Посмотреть результаты прогона можно по ссылке ``` http://localhost:5252/allure-docker-service-ui/ ```
+- Остановить докер ``` docker-compose down ```
 
-Пример запуска через консоль блока тестов login_guest в chrome с английской локалью:
-```
-pytest tests/test_main_page.py -v -m "login_guest" --browser="firefox" --language="en"
-```
 
-#### В докере
-
+#### В docker grid в ветке tests_docker
+- Установить python
+- Установить pip3
+- Активировать виртуальное окружение, например, командой ``` source test/bin/activate ```
+- Установить зависимости ``` pip install -r requirements.txt ```
+- Зпустить docker-compose с помощью команды ``` docker-compose up -d ```
+- Запустить тесты с указанием директории для allure отчетов, например, 
+``` pytest tests/*page.py --alluredir=./allure/allure-results --browser=chrome --language=ru ```
+- Посмотреть прогон тестов UI можно по ссылке 
+``` http://localhost:5252/allure-docker-service-ui/ ```
+- Остановить docker-compose командой ``` docker-compose down ```
 
 #### Тесты
 ##### Главная страница
