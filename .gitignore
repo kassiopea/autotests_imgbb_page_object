@@ -22,3 +22,12 @@ dmypy.json
 
 # User-specific stuff
 .idea/
+
+# cash
+.pytest_cache
+
+# logs
+geckodriver.log
+
+# allure reports
+allure
