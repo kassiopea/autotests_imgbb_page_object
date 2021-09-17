@@ -26,7 +26,7 @@
 5. Установить зависимости `pip install -r requirements.txt`
 6. Зпустить docker-compose с помощью команды ``` docker-compose up -d ```
 7. Запустить тесты с указанием директории для allure отчетов, например,
-``` pytest tests/*page.py --alluredir=./allure/allure-results --browser="docker_chrome.json" ```
+``` pytest tests/*page.py --alluredir=./allure/allure-results --browser=chrome --language=ru ```
 8. Посмотреть прогон тестов UI можно по ссылке ``` http://localhost:5252/allure-docker-service-ui/ ```
 9. Остановить docker-compose командой ``` docker-compose down ```
 
