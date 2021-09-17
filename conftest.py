@@ -23,20 +23,10 @@ def browser(request):
         options = Options()
         options.add_argument("--start-maximized")
         options.add_experimental_option('prefs', {'intl.accept_languages': locate})
-        # browser = webdriver.Remote(
-        #     command_executor='http://localhost:4444/wd/hub',
-        #     desired_capabilities=DesiredCapabilities.CHROME,
-        #     browser_profile=options
-        # )
         browser = webdriver.Chrome(options=options)
     elif browser == "firefox":
         fp = webdriver.FirefoxProfile()
         fp.set_preference("intl.accept_languages", locate)
-        # browser = webdriver.Remote(
-        #     command_executor='http://localhost:4444/wd/hub',
-        #     desired_capabilities=DesiredCapabilities.FIREFOX,
-        #     browser_profile=fp
-        # )
         browser = webdriver.Firefox(firefox_profile=fp)
         browser.maximize_window()
 

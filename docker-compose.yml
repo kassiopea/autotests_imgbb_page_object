@@ -1,46 +1,21 @@
 version: "3"
 services:
-
-  hub:
-    image: selenium/hub
+  allure:
+    image: "frankescobar/allure-docker-service"
+    environment:
+      CHECK_RESULTS_EVERY_SECONDS: 1
+      KEEP_HISTORY: 1
+      KEEP_HISTORY_LATEST: 25
     ports:
-      - "4444:4444"
-
-    environment:
-      GRID_MAX_SESSION: 16
-      GRID_BROWSER_TIMEOUT: 3000
-      GRID_TIMEOUT: 3000
-
-  chrome:
-    image: selenium/node-chrome
-    container_name: web-automation_chrome
-    depends_on:
-      - hub
-    environment:
-      HUB_PORT_4444_TCP_ADDR: hub
-      HUB_PORT_4444_TCP_PORT: 4444
-      NODE_MAX_SESSION: 4
-      NODE_MAX_INSTANCES: 4
+      - "5050:5050"
     volumes:
-      - /dev/shm:/dev/shm
-    ports:
-      - "9001:5900"
-    links:
-      - hub
+      - ./allure/allure-results:/app/allure-results
+      - ./allure/allure-reports:/app/default-reports
 
-  firefox:
-    image: selenium/node-firefox
-    container_name: web-automation_firefox
-    depends_on:
-      - hub
+  allure-ui:
+    image: "frankescobar/allure-docker-service-ui"
     environment:
-      HUB_PORT_4444_TCP_ADDR: hub
-      HUB_PORT_4444_TCP_PORT: 4444
-      NODE_MAX_SESSION: 2
-      NODE_MAX_INSTANCES: 2
-    volumes:
-      - /dev/shm:/dev/shm
+      ALLURE_DOCKER_PUBLIC_API_URL: "http://localhost:5050"
+      ALLURE_DOCKER_PUBLIC_API_URL_PREFIX: ""
     ports:
-      - "9002:5900"
-    links:
-      - hub
+      - "5252:5252"
